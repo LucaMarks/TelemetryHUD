@@ -1,4 +1,5 @@
-import odb;
+import obd;
+import time
 
 connection = obd.OBD() #auto connect
 
@@ -9,3 +10,16 @@ connection = obd.OBD(ports[0])#connect to the first port in the list
 # response = connection.query(cmd)
 # print(response.value)
 # print(response.unit);
+
+
+
+connection = obd.OBD()
+
+while connection.is_connected():
+    rpm = connection.query(obd.commands.RPM)
+    speed = connection.query(obd.commands.SPEED)
+
+    print("RPM:", rpm.value, "| Speed:", speed.value)
+    time.sleep(1)
+
+connection.close()
